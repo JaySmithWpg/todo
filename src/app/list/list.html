@@ -1,0 +1,21 @@
+<div class="container">
+
+  <!-- <div>
+    <acme-navbar creationDate="main.creationDate"/>
+  </div> -->
+
+  <div class="jumbotron text-center">
+    <h1>{{ list.motivator }}</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="todo in list.todoItems | orderBy: 'completed'">
+      <div class="thumbnail">
+        <div class="caption">
+          <h3>{{ todo.title }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
