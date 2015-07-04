@@ -6,9 +6,14 @@
     .controller('ListController', ListController);
 
   /** @ngInject */
-  function ListController($timeout, todoList) {
+  function ListController($timeout, motivator, todoList) {
     var vm = this;
-    vm.motivator = "Do the thing!";
+    vm.motivator = selectMotivator();
     vm.todoItems = todoList.getItems();
+
+    function selectMotivator() {
+      var motivators = motivator.getMotivators();
+      return motivators[Math.floor(Math.random() * motivators.length)];
+    }
   }
 })();
