@@ -24,7 +24,7 @@
       expect(item.timeElapsed).toEqual("5 days ago");
     }));
 
-    it('should calculate day since completion', inject(function($controller) {
+    it('should not pluralize a singular day', inject(function($controller) {
       jasmine.clock().mockDate(new Date(2015, 9, 7));
 
       var vm = $controller('ListController');
@@ -38,14 +38,6 @@
       var vm = $controller('ListController');
       var item = vm.todoItems[0];
       expect(item.timeElapsed).toEqual("2 years ago");
-    }));
-
-    it('should calculate year since completion', inject(function($controller) {
-      jasmine.clock().mockDate(new Date(2016, 9, 6));
-
-      var vm = $controller('ListController');
-      var item = vm.todoItems[0];
-      expect(item.timeElapsed).toEqual("1 year ago");
     }));
 
     it('should calculate minutes since completion', inject(function($controller) {
