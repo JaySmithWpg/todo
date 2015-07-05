@@ -10,7 +10,7 @@
     var data = [
       {
         'title': 'Work on app.',
-        'completed': '2012-04-23T18:25:43.511Z'
+        'completed': '2015-10-05T18:25:43.511Z'
       },
       {
         'title': 'Do the dishes.',
