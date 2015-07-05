@@ -84,5 +84,13 @@
       scope.newItem();
       expect(todoList.addItem).not.toHaveBeenCalled();
     }));
+
+    it('should set completed time to current time', inject(function($controller, todoList) {
+      jasmine.clock().mockDate(new Date(2015, 9, 11));
+      $controller('ListController',{$scope: scope, todoList: todoList});
+      spyOn(todoList, "markCompleted");
+      scope.completeItem({'id': 4});
+      expect(todoList.markCompleted).toHaveBeenCalledWith(4, new Date(2015, 9, 11));
+    }));
   });
 })();

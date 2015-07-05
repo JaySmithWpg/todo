@@ -22,6 +22,11 @@
       }
     };
 
+    $scope.completeItem = function(todoItem) {
+      todoList.markCompleted(todoItem.id, new Date());
+      loadTodoList();
+    };
+
     function loadTodoList() {
       vm.todoItems = todoList.getItems();
       angular.forEach(vm.todoItems, calculateElapsedTime);
@@ -29,7 +34,7 @@
 
     function calculateElapsedTime(item) {
 
-      if (item.completed) {
+      if (item.completed && item.completed > 0) {
         var millisInMinute = 60000;
         var millisInHour = millisInMinute * 60;
         var millisInDay = millisInHour * 24;
