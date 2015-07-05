@@ -42,26 +42,30 @@
 
         var milli = new Date().getTime() - new Date(item.completed).getTime();
 
-        var unit = millisInMinute;
-        var scale = "minute";
+        if (milli < millisInMinute) {
+          item.timeElapsed = "Now";
+        } else {
+          var unit = millisInMinute;
+          var scale = "minute";
 
-        if (milli > millisInYear) {
-          unit = millisInYear;
-          scale = "year";
-        } else if (milli > millisInDay) {
-          unit = millisInDay;
-          scale = "day";
-        } else if (milli > millisInHour) {
-          unit = millisInHour;
-          scale = "hour";
+          if (milli > millisInYear) {
+            unit = millisInYear;
+            scale = "year";
+          } else if (milli > millisInDay) {
+            unit = millisInDay;
+            scale = "day";
+          } else if (milli > millisInHour) {
+            unit = millisInHour;
+            scale = "hour";
+          }
+
+          var elapsed = Math.floor(milli / unit);
+          item.timeElapsed = elapsed +
+                             " " +
+                             scale +
+                             ((elapsed !== 1) ? "s" : "") +
+                             " ago";
         }
-
-        var elapsed = Math.floor(milli / unit);
-        item.timeElapsed = elapsed +
-                           " " +
-                           scale +
-                           ((elapsed !== 1) ? "s" : "") +
-                           " ago";
       } else {
         item.timeElapsed = "Never";
       }

@@ -56,6 +56,13 @@
       expect(item.timeElapsed).toEqual("2 hours ago");
     }));
 
+    it('should say "Now" for tasks completed under a second ago', inject(function($controller) {
+      jasmine.clock().mockDate(new Date(2015, 9, 5, 13,26,0));
+      var vm = $controller('ListController', {$scope: scope});
+      var item = vm.todoItems[0];
+      expect(item.timeElapsed).toEqual("Now");
+    }));
+
     it('should tell us if the task has never been completed', inject(function($controller) {
       var vm = $controller('ListController', {$scope: scope});
       var item = vm.todoItems[3];

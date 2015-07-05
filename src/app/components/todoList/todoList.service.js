@@ -37,7 +37,7 @@
 
     this.getItems = getItems;
     this.addItem = function(name){
-      data.push({'title': name, 'completed': ''});
+      data.push({'title': name, 'completed': new Date(0)});
     };
 
     this.markCompleted = function(index, time){
