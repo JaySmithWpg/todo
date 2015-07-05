@@ -31,6 +31,7 @@
     ];
 
     this.getItems = getItems;
+    this.addItem = function(){};
 
     function getItems() {
       return data;

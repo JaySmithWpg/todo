@@ -6,12 +6,21 @@
     .controller('ListController', ListController);
 
   /** @ngInject */
-  function ListController($timeout, motivator, todoList) {
+  function ListController($scope, motivator, todoList) {
     var vm = this;
     vm.motivator = selectMotivator();
     vm.todoItems = [];
 
     loadTodoList();
+
+    $scope.newItem = function() {
+      var newItem = $scope.newTodo.trim();
+      if (newItem) {
+        todoList.addItem(newItem);
+        loadTodoList();
+        $scope.newTodo = "";
+      }
+    };
 
     function loadTodoList() {
       vm.todoItems = todoList.getItems();

@@ -31,6 +31,9 @@
     ];
 
     this.getItems = getItems;
+    this.addItem = function(name){
+      data.push({'title': name, 'completed': ''});
+    };
 
     function getItems() {
       return data;
