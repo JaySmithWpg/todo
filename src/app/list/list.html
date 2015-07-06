@@ -15,10 +15,10 @@
           <h3 class="panel-title">{{ todo.title }}</h3>
         </div>
         <div class="panel-body">
-          Last Completed: <strong>{{ todo.timeElapsed }}</strong>
+          Last Completed: <strong>{{ list.getElapsedTime(todo.completed) }}</strong>
         </div>
         <div class="panel-footer">
-          <button type="button" class="btn btn-block btn-default" ng-click="completeItem(todo)">Done!</button>
+          <button type="button" class="btn btn-block btn-default" ng-click="list.completeItem(todo)">Done!</button>
         </div>
       </div>
     </div>
@@ -28,14 +28,12 @@
           <h3 class="panel-title">New Task</h3>
         </div>
         <div class="panel-body">
-          <form ng-submit="newItem()">
-            <div class="input-group">
-              <input type="text" class="form-control" ng-model="newTodo" name="newItem" placeholder="Task name...">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">Add Task</button>
-              </span>
-            </div>
-          </form>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="list.newTodo" name="newItem" placeholder="Task name...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="list.newItem()">Add Task</button>
+            </span>
+          </div>
         </div>
       </div>
     </div>
