@@ -41,14 +41,20 @@
     };
 
     this.markCompleted = function(id, time){
-      var item = _.find(data, function(item){return item.id === id;});
-      item.completed = time;
+      for(var i = data.length; i--;) {
+        if(data[i].id === id) {
+          data[i].completed = time;
+          return;
+        }
+      }
     };
 
     this.deleteItem = function(id) {
-      var item = _.find(data, function(item){return item.id === id;});
-      var index = data.indexOf(item);
-      data.splice(index, 1);
+      for(var i = data.length; i--;) {
+        if(data[i].id === id) {
+          data.splice(i, 1);
+        }
+      }
     };
 
     function getItems() {
