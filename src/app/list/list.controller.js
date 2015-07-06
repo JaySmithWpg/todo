@@ -60,7 +60,7 @@
 
     this.removeItem = function(todoItem) {
       todoList.deleteItem(todoItem.id);
-    }
+    };
 
     this.completeItem = function(todoItem) {
       todoList.markCompleted(todoItem.id, new Date());
