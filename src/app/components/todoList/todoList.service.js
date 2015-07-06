@@ -6,59 +6,54 @@
       .service('todoList', todoList);
 
   /** @ngInject */
-  function todoList() {
-    var data = [
-      {
-        'id': 1,
-        'title': 'Work on app.',
-        'completed': new Date('2012-04-23T18:25:43.511Z')
-      },
-      {
-        'id': 2,
-        'title': 'Do the dishes.',
-        'completed': new Date('2014-04-23T18:25:43.511Z')
-      },
-      {
-        'id': 3,
-        'title': 'Talk to Bob.',
-        'completed': new Date('2010-04-23T18:25:43.511Z')
-      },
-      {
-        'id': 4,
-        'title': 'Check mail.',
-        'completed': new Date(0)
-      },
-      {
-        'id': 5,
-        'title': 'Rule world.',
-        'completed': new Date('2012-04-23T18:25:43.511Z')
-      },
-    ];
+  function todoList(localStorageService) {
+    var data = getItems();
+    this.getItems = data;
 
-    this.getItems = getItems;
-    this.addItem = function(name){
-      data.push({'title': name, 'completed': new Date(0)});
+    this.addItem = function(title){
+      for(var i = data.length; i--;) {
+        if(data[i].title === title) {
+          //Item Exists, abort
+          return false;
+        }
+      }
+      data.push({'title': title, 'completed': new Date(0)});
+      persistItems();
+      return true;
     };
 
-    this.markCompleted = function(id, time){
+    this.markCompleted = function(title, time){
       for(var i = data.length; i--;) {
-        if(data[i].id === id) {
+        if(data[i].title === title) {
           data[i].completed = time;
+          persistItems();
           return;
         }
       }
     };
 
-    this.deleteItem = function(id) {
+    this.deleteItem = function(title) {
       for(var i = data.length; i--;) {
-        if(data[i].id === id) {
+        if(data[i].title === title) {
           data.splice(i, 1);
+          persistItems();
         }
       }
     };
 
+    function persistItems() {
+      localStorageService.set("todoList", data);
+    }
+
     function getItems() {
-      return data;
+      var result = localStorageService.get("todoList");
+      if (!result) {return [];}
+
+      angular.forEach(result, function(item)
+      {
+        item.completed = new Date(item.completed);
+      });
+      return result;
     }
   }
 

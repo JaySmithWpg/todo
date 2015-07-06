@@ -2,18 +2,37 @@
   'use strict';
 
   describe('list controller', function(){
+
     beforeEach(module('procrastinator'));
     var completionTime = new Date('2015-10-05T18:25:43.511Z');
+
+    beforeEach(module(function($provide) {
+      var mockTodoList = jasmine.createSpyObj("todoList", ['addItem',
+                                                           'markCompleted',
+                                                           'deleteItem']);
+      mockTodoList.getItems = [
+        {
+          'title': 'Work on app.',
+          'completed': new Date('2015-10-05T18:25:43.511Z')
+        },
+        {
+          'title': 'Do the dishes.',
+          'completed': new Date('2014-04-23T18:25:43.511Z')
+        }
+      ];
+
+      $provide.value("todoList", mockTodoList);
+    }));
 
     it('should return motivating exclamitory text', inject(function($controller) {
       var vm = $controller('ListController');
       expect(vm.motivator).toContain("!");
     }));
 
-    it('should return a list of five items to do', inject(function($controller) {
+    it('should return a list of two items to do', inject(function($controller) {
       var vm = $controller('ListController');
       expect(angular.isArray(vm.todoItems).toBeTruthy);
-      expect(vm.todoItems.length === 5).toBeTruthy();
+      expect(vm.todoItems.length === 2).toBeTruthy();
     }));
 
     it('should calculate days since completion', inject(function($controller) {
@@ -59,7 +78,6 @@
 
     it('should add a new entry to the list service', inject(function($controller, todoList) {
       var vm = $controller('ListController',{todoList: todoList});
-      spyOn(todoList, "addItem");
       vm.newTodo = "Feed monkeys.";
       vm.newItem();
       expect(todoList.addItem).toHaveBeenCalledWith("Feed monkeys.");
@@ -67,9 +85,8 @@
 
     it('should delete from the list service', inject(function($controller, todoList) {
       var vm = $controller('ListController',{todoList: todoList});
-      spyOn(todoList, "deleteItem");
-      vm.removeItem({'id' : 4});
-      expect(todoList.deleteItem).toHaveBeenCalledWith(4);
+      vm.removeItem({'title' : 'monkey'});
+      expect(todoList.deleteItem).toHaveBeenCalledWith('monkey');
     }));
 
     it('should clear the field after adding an item', inject(function($controller) {
@@ -81,7 +98,6 @@
 
     it('should not add blank items', inject(function($controller, todoList) {
       var vm = $controller('ListController',{todoList: todoList});
-      spyOn(todoList, "addItem");
       vm.newTodo = "";
       vm.newItem();
       expect(todoList.addItem).not.toHaveBeenCalled();
@@ -90,9 +106,8 @@
     it('should set completed time to current time', inject(function($controller, todoList) {
       jasmine.clock().mockDate(new Date(2015, 9, 11));
       var vm = $controller('ListController',{todoList: todoList});
-      spyOn(todoList, "markCompleted");
-      vm.completeItem({'id': 4});
-      expect(todoList.markCompleted).toHaveBeenCalledWith(4, new Date(2015, 9, 11));
+      vm.completeItem({'title': 'pineapple'});
+      expect(todoList.markCompleted).toHaveBeenCalledWith('pineapple', new Date(2015, 9, 11));
     }));
   });
 })();

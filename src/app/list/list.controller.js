@@ -13,7 +13,7 @@
     var MILLIS_IN_YEAR = MILLIS_IN_DAY * 365;
 
     this.motivator = selectMotivator();
-    this.todoItems = todoList.getItems();
+    this.todoItems = todoList.getItems;
     this.newTodo = "";
 
     function selectMotivator() {
@@ -59,11 +59,11 @@
     };
 
     this.removeItem = function(todoItem) {
-      todoList.deleteItem(todoItem.id);
+      todoList.deleteItem(todoItem.title);
     };
 
     this.completeItem = function(todoItem) {
-      todoList.markCompleted(todoItem.id, new Date());
+      todoList.markCompleted(todoItem.title, new Date());
     };
   }
 })();
