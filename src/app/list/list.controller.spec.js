@@ -65,6 +65,13 @@
       expect(todoList.addItem).toHaveBeenCalledWith("Feed monkeys.");
     }));
 
+    it('should delete from the list service', inject(function($controller, todoList) {
+      var vm = $controller('ListController',{todoList: todoList});
+      spyOn(todoList, "deleteItem");
+      vm.removeItem({'id' : 4});
+      expect(todoList.deleteItem).toHaveBeenCalledWith(4);
+    }));
+
     it('should clear the field after adding an item', inject(function($controller) {
       var vm = $controller('ListController');
       vm.newTodo = "Feed monkeys.";

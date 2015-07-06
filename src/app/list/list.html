@@ -12,7 +12,10 @@
     <div class="col-sm-6 col-md-4" ng-repeat="todo in list.todoItems | orderBy: 'completed'">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ todo.title }}</h3>
+          <h3 class="panel-title">
+            {{ todo.title }}
+            <span class="glyphicon glyphicon-remove pull-right" ng-click="list.removeItem(todo)" aria-hidden="true"></span>
+          </h3>
         </div>
         <div class="panel-body">
           Last Completed: <strong>{{ list.getElapsedTime(todo.completed) }}</strong>

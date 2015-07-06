@@ -40,12 +40,15 @@
       data.push({'title': name, 'completed': new Date(0)});
     };
 
-    this.markCompleted = function(index, time){
-      angular.forEach(data, function(todo) {
-        if (todo.id === index){
-          todo.completed = time;
-        }
-      });
+    this.markCompleted = function(id, time){
+      var item = _.find(data, function(item){return item.id === id;});
+      item.completed = time;
+    };
+
+    this.deleteItem = function(id) {
+      var item = _.find(data, function(item){return item.id === id;});
+      var index = data.indexOf(item);
+      data.splice(index, 1);
     };
 
     function getItems() {

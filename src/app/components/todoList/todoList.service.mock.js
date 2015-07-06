@@ -38,6 +38,7 @@
     this.getItems = getItems;
     this.addItem = function(){};
     this.markCompleted = function(){};
+    this.deleteItem = function(){};
 
     function getItems() {
       return data;
